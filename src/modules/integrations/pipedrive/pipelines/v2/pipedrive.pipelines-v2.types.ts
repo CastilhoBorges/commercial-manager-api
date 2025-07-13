@@ -1,4 +1,4 @@
-import { PipedriveResponseV2 } from '../../pipedrive.types';
+import { PipedriveResponseV2, SortBy, SortDirection } from '../../pipedrive.types';
 
 export type PipelineV2 = {
   id: number;
@@ -14,8 +14,8 @@ export type PipelineV2 = {
 export type PipelinesResponseV2 = PipedriveResponseV2<PipelineV2[]>;
 
 export type GetAllPipelinesQueryParams = {
-  sort_by?: 'id' | 'update_time' | 'add_time';
-  sort_direction?: 'asc' | 'desc';
+  sort_by?: SortBy;
+  sort_direction?: SortDirection;
   limit?: number & { __min: 1; __max: 500 };
   cursor?: string;
 };

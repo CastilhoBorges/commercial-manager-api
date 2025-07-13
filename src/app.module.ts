@@ -3,9 +3,9 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { BaseModule } from './common/config/base/base-service';
-import { IntegrationModule } from './modules/integration/integration.module';
+import { IntegrationsModule } from './modules/integrations/integration.module';
 
-export const modules = [IntegrationModule];
+export const modules = [IntegrationsModule];
 
 @Module({
   imports: [ConfigModule.forRoot({ isGlobal: true, load: [] }), ...modules],

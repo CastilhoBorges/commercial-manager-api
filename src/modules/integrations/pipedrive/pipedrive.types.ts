@@ -7,3 +7,7 @@ export type PipedriveResponseV2<T> = {
   data: T;
   additional_data: PipedriveNextCursor;
 };
+
+export type SortDirection = 'asc' | 'desc';
+
+export type SortBy = 'id' | 'update_time' | 'add_time';

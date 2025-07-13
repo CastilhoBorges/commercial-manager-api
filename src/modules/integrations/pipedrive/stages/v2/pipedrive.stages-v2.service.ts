@@ -1,17 +1,18 @@
 import { HttpService } from '@nestjs/axios';
-import { IntegrationPipelines } from '../../../integrations.interface';
-import {
-  GetAllPipelinesQueryParams,
-  PipelinesResponseV2,
-} from './pipedrive.pipelines-v2.types';
+import { IntegrationStages } from '../../../integrations.interface';
 import { firstValueFrom } from 'rxjs';
-import { Logger } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { validatePipedriveEnv } from '../../../../../utils/funcions/validate-pipedrive-env';
 import { AxiosError } from 'axios';
 import { PIPEDRIVE_ENDPOINTS } from '../../pipedrive.constants';
+import {
+  GetAllStagesQueryParams,
+  StageResponseV2,
+} from './pipedrive.stages-v2.types';
 
-export class PipedrivePipelinesServiceV2 implements IntegrationPipelines {
-  private readonly logger = new Logger(PipedrivePipelinesServiceV2.name);
+@Injectable()
+export class PipedriveStagesServiceV2 implements IntegrationStages {
+  private readonly logger = new Logger(PipedriveStagesServiceV2.name);
   private readonly BASE_URL_V2: string;
   private readonly API_KEY: string;
 
@@ -22,18 +23,18 @@ export class PipedrivePipelinesServiceV2 implements IntegrationPipelines {
     validatePipedriveEnv(this.BASE_URL_V2, this.API_KEY);
   }
 
-  async getAllPipelines(
-    options: GetAllPipelinesQueryParams = {},
-  ): Promise<PipelinesResponseV2> {
-    const url = `${this.BASE_URL_V2}/${PIPEDRIVE_ENDPOINTS.PIPELINES}`;
+  async getAllStages(
+    options: GetAllStagesQueryParams = {},
+  ): Promise<StageResponseV2> {
+    const url = `${this.BASE_URL_V2}/${PIPEDRIVE_ENDPOINTS.STAGES}`;
 
     try {
-      this.logger.debug(
-        `Fetching pipelines with params: ${JSON.stringify(options)}`,
+      this.logger.log(
+        `Fetching stages with params: ${JSON.stringify(options)}`,
       );
-
+      console.log(options);
       const response = await firstValueFrom(
-        this.httpService.get<PipelinesResponseV2>(url, {
+        this.httpService.get<StageResponseV2>(url, {
           params: {
             api_token: this.API_KEY,
             ...options,
@@ -43,7 +44,7 @@ export class PipedrivePipelinesServiceV2 implements IntegrationPipelines {
 
       return response.data;
     } catch (error: any) {
-      this.logger.error('Error fetching pipelines:', error);
+      this.logger.error('Error fetching stages:' + error);
 
       if (error instanceof AxiosError) {
         throw new Error(

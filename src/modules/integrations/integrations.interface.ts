@@ -1,31 +1,31 @@
 export interface IntegrationPipelines<T = unknown> {
-  getAllPipelines(params: T): Promise<T>;
+  getAllPipelines(): Promise<T>;
 }
 
 export interface IntegrationStages<T = unknown> {
-  getAllStages(params: T): Promise<T>;
+  getAllStages(): Promise<T>;
 }
 
 export interface IntegrationDeals<T = unknown> {
-  getDealsByPipelineId(pipelineId: string): Promise<T>;
+  getAllDeals(): Promise<T>;
 }
 
 export interface IntegrationDealFields<T = unknown> {
-  getDealFields(): Promise<T>;
+  getAllDealFields(): Promise<T>;
 }
 
 export interface IntegrationPerson<T = unknown> {
-  getPersonById(personId: string): Promise<T>;
+  getPersonById(): Promise<T>;
 }
 
 export interface IntegrationOrganizations<T = unknown> {
-  getOrganizationById(organizationId: string): Promise<T>;
+  getOrganizationById(): Promise<T>;
 }
 
 export interface IntegrationNotes<T = unknown> {
-  getNotesByDealId(dealId: string): Promise<T>;
+  getNotesByDealId(): Promise<T>;
 }
 
 export interface IntegrationActivities<T = unknown> {
-  getActivitiesByDealId(dealId: string): Promise<T>;
+  getActivitiesByDealId(): Promise<T>;
 }

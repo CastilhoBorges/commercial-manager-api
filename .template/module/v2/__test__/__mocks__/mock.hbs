@@ -1,0 +1,22 @@
+import { {{namePascalCase}} } from '../../entities/{{nameKebabCase}}.entity';
+import { {{namePascalCase}}Repository } from '../../repositories/{{nameKebabCase}}.repository';
+import { {{namePascalCase}}Service } from '../../services/{{nameKebabCase}}.service';
+
+export const {{nameCamelCase}}ServiceProvider = {
+  {{nameCamelCase}}Repository: {{namePascalCase}}Repository,
+  {{nameCamelCase}}Service: {{namePascalCase}}Service,
+};
+
+export const {{nameCamelCase}}sMock: Partial<{{namePascalCase}}>[] = [
+  {
+    id: '40467e48-1c93-45c2-9ca5-2d4936b29596',
+    name: 'Developer',
+  },
+  {
+    id: '40467e48-1c93-45c2-9ca5-2d4936b29597',
+    name: 'Developer 2',
+  },
+];
+
+
+

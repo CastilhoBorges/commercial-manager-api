@@ -1,0 +1,83 @@
+import { Injectable } from '@nestjs/common';
+import { EntityManager } from 'typeorm';
+import { {{namePascalCase}}Repository } from '../repositories/{{nameKebabCase}}.repository';
+import { Create{{namePascalCase}}DTO } from '../{{nameKebabCase}}.dtos';
+import { Create{{namePascalCase}}Response } from '../{{nameKebabCase}}.types';
+import { {{namePascalCase}}ExistsNameException } from '../exceptions/{{nameKebabCase}}.exception';
+import { FindOneOptions } from 'typeorm';
+import { {{namePascalCase}} } from '../entities/{{nameKebabCase}}.entity';
+
+@Injectable()
+export class {{namePascalCase}}Service {
+  constructor(
+    private {{nameCamelCase}}Repository: {{namePascalCase}}Repository,
+  ) {}
+
+  async create{{namePascalCase}}(
+    dto: Create{{namePascalCase}}DTO,
+    entityManager?: EntityManager,
+  ): Promise<Create{{namePascalCase}}Response> {
+    await this.validateExisting{{namePascalCase}}Name(
+      dto.name,
+      entityManager,
+    );
+
+    const {{nameCamelCase}}Created = await this.{{nameCamelCase}}Repository.create(dto, entityManager);
+
+    return { id: {{nameCamelCase}}Created.id, name: {{nameCamelCase}}Created.name };
+  }
+
+  async getAll{{namePascalCase}}s(entityManager?: EntityManager) {
+    return this.{{nameCamelCase}}Repository.find(
+      {
+        select: {
+          id: true,
+        },
+      },
+      entityManager,
+    );
+  }
+
+  async get{{namePascalCase}}ById(id: string, entityManager?: EntityManager) {
+    return this.{{nameCamelCase}}Repository.findOne(
+      {
+        select: { id: true },
+        where: { id },
+      },
+      entityManager,
+    );
+  }
+
+  async get{{namePascalCase}}ByName(name: string, entityManager?: EntityManager) {
+    return this.{{nameCamelCase}}Repository.findOne(
+      {
+        select: { id: true },
+        where: { name },
+      },
+      entityManager,
+    );
+  }
+
+  async get{{namePascalCase}}(
+    options: FindOneOptions<{{namePascalCase}}>,
+    entityManager?: EntityManager,
+  ) {
+    return this.{{nameCamelCase}}Repository.findOne(options, entityManager);
+  }
+
+  async validateExisting{{namePascalCase}}Name(
+    name: string,
+    entityManager?: EntityManager,
+  ): Promise<boolean> {
+    const {{nameCamelCase}} = await this.get{{namePascalCase}}ByName(
+      name,
+      entityManager,
+    );
+
+    if (!{{nameCamelCase}}?.id) {
+      return Boolean(name);
+    }
+
+    throw new {{namePascalCase}}ExistsNameException();
+  }
+}

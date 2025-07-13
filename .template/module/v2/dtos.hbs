@@ -1,0 +1,13 @@
+import { IsNotEmpty, IsString } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+
+export class Create{{namePascalCase}}DTO {
+@ApiProperty({
+example: 'Orbeflow',
+})
+@IsNotEmpty()
+@IsString()
+name: string;
+}
+
+export class Update{{namePascalCase}}DTO extends PartialType(Create{{namePascalCase}}DTO) {}

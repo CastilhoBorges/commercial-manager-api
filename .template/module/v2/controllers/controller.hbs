@@ -1,0 +1,18 @@
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Controller, Get, UseGuards } from '@nestjs/common';
+import { {{namePascalCase}}Service } from '../services/{{nameKebabCase}}.service';
+import { {{namePascalCase}} } from '../entities/{{nameKebabCase}}.entity';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
+
+@ApiTags('{{namePascalCase}}')
+@Controller('{{nameKebabCase}}')
+export class {{namePascalCase}}Controller {
+  constructor(private readonly {{nameCamelCase}}Service: {{namePascalCase}}Service) {}
+
+  @Get()
+  @UseGuards(JwtAuthGuard)
+  @ApiResponse({ type: Promise<{{namePascalCase}}[]> })
+  async getAll{{namePascalCase}}s() {
+    return this.{{nameCamelCase}}Service.getAll{{namePascalCase}}s();
+  }
+}

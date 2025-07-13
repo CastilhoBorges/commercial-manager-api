@@ -1,0 +1,15 @@
+import { {{namePascalCase}}Response } from './{{nameKebabCase}}.types';
+import { {{namePascalCase}} } from './entities/{{nameKebabCase}}.entity';
+
+export class {{namePascalCase}}Mapper {
+  static toResponse(data: {{namePascalCase}}): {{namePascalCase}}Response {
+    return {
+      id: data.id,
+      name: data.name
+    };
+  }
+
+  static toResponseList(data: {{namePascalCase}}[]): {{namePascalCase}}Response[] {
+    return data.map((item) => this.toResponse(item));
+  }
+}
